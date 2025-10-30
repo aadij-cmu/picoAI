@@ -17,7 +17,7 @@ model.eval()  # Set to evaluation mode
 print("Model loaded successfully!")
 
 # Load the flag
-flag = open('/flag.txt').read().strip()
+flag = open('flag.txt').read().strip()
 
 # Fine-tuning parameters (simplified for CTF)
 LEARNING_RATE = 0.1
@@ -47,7 +47,7 @@ HTML_FORM = '''
     </style>
 </head>
 <body>
-    <h1>🛡️ SpamShield Pro</h1>
+    <h1>SpamShield Pro</h1>
     <p>Help train our advanced AI spam filter! Contribute to making the internet safer.</p>
     
     <div class="tab">
@@ -62,8 +62,8 @@ HTML_FORM = '''
             <form method="post" action="/train">
                 <textarea name="message" rows="4" placeholder="Enter a message to classify..." required>{{ last_message }}</textarea><br>
                 <label>This message is:</label>
-                <input type="radio" name="label" value="ham" required> ✅ Ham (Legitimate)
-                <input type="radio" name="label" value="spam"> 🚩 Spam<br><br>
+                <input type="radio" name="label" value="ham" required> Ham (Legitimate)
+                <input type="radio" name="label" value="spam"> Spam<br><br>
                 <input type="submit" value="Submit Training Example">
             </form>
             <p>{{ train_feedback | safe }}</p>
@@ -104,7 +104,7 @@ HTML_FORM = '''
                 <p>Confidence: {{ "%.2f"|format(advanced_confidence * 100) }}%</p>
                 {% if flag_revealed %}
                 <div style="background: #d4edda; padding: 15px; border-radius: 5px; margin: 10px 0;">
-                    <h4>🎉 Model Integrity Check Passed!</h4>
+                    <h4>Model Integrity Check Passed!</h4>
                     <p>The secret key is: <strong>{{ flag }}</strong></p>
                 </div>
                 {% endif %}
@@ -190,7 +190,7 @@ def train():
     <div style='color: green;'>
         <p>✓ Thank you for your contribution! Example #{examples_count} added to training data.</p>
         <p><strong>Message:</strong> "{message[:100]}{'...' if len(message) > 100 else ''}"</p>
-        <p><strong>Labeled as:</strong> {'✅ HAM (Legitimate)' if label == 'ham' else '🚩 SPAM'}</p>
+        <p><strong>Labeled as:</strong> {'HAM (Legitimate)' if label == 'ham' else 'SPAM'}</p>
     </div>
     """
     
@@ -210,7 +210,7 @@ def test():
     
     return render_template_string(HTML_FORM,
                                 test_message=test_message,
-                                test_result="🚩 SPAM" if result == "spam" else "✅ HAM",
+                                test_result="SPAM" if result == "spam" else "HAM",
                                 test_class="spam" if result == "spam" else "ham",
                                 confidence=confidence)
 
@@ -242,7 +242,7 @@ def advanced_test():
     
     return render_template_string(HTML_FORM,
                                 advanced_message=advanced_message,
-                                advanced_result="🚩 SPAM" if result == "spam" else "✅ HAM", 
+                                advanced_result="SPAM" if result == "spam" else "HAM", 
                                 advanced_class="spam" if result == "spam" else "ham",
                                 advanced_confidence=confidence,
                                 flag_revealed=flag_revealed,
